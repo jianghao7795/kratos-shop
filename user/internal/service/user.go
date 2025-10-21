@@ -57,14 +57,14 @@ func (u *UserService) GetUserList(ctx context.Context, req *v1.PageInfo) (*v1.Us
 
 	for _, user := range list {
 		userInfoRsp := UserResponse(user)
-		rsp.Data = append(rsp.Data, &userInfoRsp)
+		rsp.Data = append(rsp.Data, userInfoRsp)
 	}
 
 	return rsp, nil
 }
 
-func UserResponse(user *biz.User) v1.UserInfoResponse {
-	userInfoRsp := v1.UserInfoResponse{
+func UserResponse(user *biz.User) *v1.UserInfoResponse {
+	userInfoRsp := &v1.UserInfoResponse{
 		Id:       user.ID,
 		Mobile:   user.Mobile,
 		Password: user.Password,
@@ -85,7 +85,7 @@ func (u *UserService) GetUserByMobile(ctx context.Context, req *v1.MobileRequest
 		return nil, err
 	}
 	rsp := UserResponse(user)
-	return &rsp, nil
+	return rsp, nil
 }
 
 // UpdateUser .
@@ -102,7 +102,7 @@ func (u *UserService) UpdateUser(ctx context.Context, req *v1.UpdateUserInfo) (*
 		return nil, err
 	}
 
-	if user == false {
+	if !user {
 		return nil, err
 	}
 
@@ -125,5 +125,5 @@ func (u *UserService) GetUserById(ctx context.Context, req *v1.IdRequest) (*v1.U
 		return nil, err
 	}
 	rsp := UserResponse(user)
-	return &rsp, nil
+	return rsp, nil
 }
