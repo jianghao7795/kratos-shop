@@ -1,6 +1,7 @@
 package data_test
 
 import (
+	"time"
 	"user/internal/biz"
 	"user/internal/data"
 
@@ -13,13 +14,14 @@ var _ = Describe("User", func() {
 	var uD *biz.User
 	BeforeEach(func() {
 		ro = data.NewUserRepo(Db, nil)
+		birthday := time.Unix(693629981, 0)
 		uD = &biz.User{
 			ID:       1,
 			Mobile:   "13803881388",
 			Password: "admin123456",
 			NickName: "aliliin",
 			Role:     1,
-			Birthday: 693629981,
+			Birthday: &birthday,
 		}
 	})
 

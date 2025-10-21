@@ -1,6 +1,7 @@
 package biz_test
 
 import (
+	"time"
 	"user/internal/biz"
 	"user/internal/mocks/mrepo"
 
@@ -17,13 +18,14 @@ var _ = Describe("User", func() {
 		userCase = biz.NewUserUsecase(mUserRepo, nil)
 	})
 	It("Create", func() {
+		birthday := time.Unix(693629981, 0)
 		info := &biz.User{
 			ID:       1,
 			Mobile:   "13803881388",
 			Password: "admin123456",
 			NickName: "aliliin",
 			Role:     1,
-			Birthday: 693629981,
+			Birthday: &birthday,
 		}
 		mUserRepo.EXPECT().CreateUser(ctx, gomock.Any()).Return(info, nil)
 		l, err := userCase.Create(ctx, info)
